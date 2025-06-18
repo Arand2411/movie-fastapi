@@ -5,6 +5,7 @@ from user_jwt import createToken , validateToken  # Funciones personalizadas par
 from bd.database import engine, Base
 from routers.movie import routerMovie
 from routers.users import routerUsers
+import os
 
 # Instancia principal de la app
 app = FastAPI(
@@ -25,3 +26,6 @@ Base.metadata.create_all(bind=engine)
 def read_root():
     return HTMLResponse('<h2>Hola mundo!<h2>')
 
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT",8000))
+    uvicorn.run("main:app", host= "0.0.0.0", port=port)
